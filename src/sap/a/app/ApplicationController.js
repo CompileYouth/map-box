@@ -1,9 +1,11 @@
-import ManagedObject from "sap/ui/base/ManagedObject";
+import ViewController from "../view/ViewController";
 
-export default class ApplicationController extends ManagedObject
-{
-    run()
-    {
-        console.log("The application is running now.");
+export default class ApplicationController extends ViewController {
+    getApplication() {
+        return this.getView();
+    }
+
+    run() {
+
     }
 }

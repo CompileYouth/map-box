@@ -1,6 +1,13 @@
 import AdaptiveApplicationController from "sap/a/app/ApplicationController";
 
-export default class ApplicationController extends AdaptiveApplicationController
-{
-    
+import Application from "./Application";
+
+export default class ApplicationController extends AdaptiveApplicationController {
+    createView(options) {
+        return new Application(options);
+    }
+
+    run() {
+        console.log("Running...");
+    }
 }
