@@ -1,0 +1,33 @@
+{
+  "name": "map-box",
+  "version": "1.0.0",
+  "description": "模仿高德地图",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CompileYouth/map-box.git"
+  },
+  "author": "CompileYouth <CompileYouth@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CompileYouth/map-box/issues"
+  },
+  "homepage": "https://github.com/CompileYouth/map-box#readme",
+  "devDependencies": {
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-preset-ui5": "^6.0.3",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "gulp": "^3.9.1",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "rimraf": "^2.5.3",
+    "style-loader": "^0.13.1",
+    "ui5-loader": "^1.0.3",
+    "webpack": "^1.13.1"
+  }
+}
