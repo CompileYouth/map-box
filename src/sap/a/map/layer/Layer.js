@@ -1,37 +1,30 @@
 import ManagedObject from "sap/ui/base/ManagedObject";
 
-export default class Layer extends ManagedObject
-{
-    constructor(...args)
-	{
+export default class Layer extends ManagedObject {
+    constructor(...args) {
 		super(...args)
 		this.afterInit();
 	}
 
-    init()
-    {
+    init() {
         this.container = L.layerGroup();
     }
 
-    afterInit()
-    {
+    afterInit() {
 
     }
 
 
 
-    isVisible()
-    {
+    isVisible() {
         return this.getParent() !== null && this.getParent().map.hasLayer(this.container);
     }
 
 
 
-    removeFromParent()
-    {
+    removeFromParent() {
         const parent = this.getParent();
-        if (parent)
-        {
+        if (parent) {
             parent.removeLayer(this);
         }
     }

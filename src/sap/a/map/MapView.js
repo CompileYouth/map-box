@@ -1,8 +1,7 @@
 import Layer from "./layer/Layer";
 import View from "../view/View";
 
-export default class MapView extends View
-{
+export default class MapView extends View {
     metadata = {
 		properties: {
 			defaultCenterLocation: {
@@ -36,8 +35,7 @@ export default class MapView extends View
         }
     };
 
-    init()
-    {
+    init() {
         super.init();
         this.addStyleClass("sap-a-map-view");
 
@@ -48,15 +46,13 @@ export default class MapView extends View
 		});
     }
 
-    afterInit()
-    {
+    afterInit() {
         super.afterInit();
         this._initMap();
         this.initLayers();
     }
 
-    _initMap()
-    {
+    _initMap() {
         const options = {
             zoomControl: true,
 			attributionControl: false,
@@ -73,50 +69,42 @@ export default class MapView extends View
 
 
 
-    getCenterLocation()
-	{
+    getCenterLocation() {
 		return this.map.getCenter();
 	}
 
-	setCenterLocation(centerLocation, zoom, options)
-	{
+	setCenterLocation(centerLocation, zoom, options) {
 		this.map.setView(centerLocation, zoom, options);
 	}
 
 
-    getBounds()
-	{
+    getBounds() {
 		return this.map.getBounds();
 	}
 
-	setBounds(bounds)
-	{
+	setBounds(bounds) {
 		this.map.fitBounds(bounds);
 	}
 
 
-    getZoom()
-	{
+    getZoom() {
 		return this.map.getZoom();
 	}
 
-	setZoom(zoom)
-	{
+	setZoom(zoom) {
 		this.map.setZoom(zoom);
 	}
 
 
 
 
-    addLayer(layer)
-    {
+    addLayer(layer) {
         this.addAggregation("layers", layer);
         this.map.addLayer(layer.container);
         return this;
     }
 
-    removeLayer(layer)
-    {
+    removeLayer(layer) {
         const result = this.removeAggregation("layers", layer);
         if (result)
         {
@@ -125,16 +113,14 @@ export default class MapView extends View
         return result;
     }
 
-    removeAllLayers()
-    {
+    removeAllLayers() {
         while (this.getLayers().length > 0)
         {
             this.getLayers()[0].removeFromParent();
         }
     }
 
-    showLayer(layer)
-    {
+    showLayer(layer) {
         if (!layer instanceof Layer || layer.getParent() !== this) return;
         if (!layer.isVisible())
         {
@@ -142,8 +128,7 @@ export default class MapView extends View
         }
     }
 
-    hideLayer(layer)
-    {
+    hideLayer(layer) {
         if (!layer instanceof Layer || layer.getParent() !== this) return;
         if (layer.isVisible())
         {
@@ -154,8 +139,7 @@ export default class MapView extends View
 
 
 
-    invalidateSize(...args)
-    {
+    invalidateSize(...args) {
         this.map.invalidateSize(...args);
     }
 }
