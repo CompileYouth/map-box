@@ -1,6 +1,7 @@
 import ManagedObject from "sap/ui/base/ManagedObject";
 
-export default class View extends ManagedObject {
+export default class View extends ManagedObject
+{
     metadata = {
 		aggregations: {
 			subviews: {
@@ -12,71 +13,86 @@ export default class View extends ManagedObject {
 		}
     };
 
-    constructor(...args) {
+    constructor(...args)
+    {
         super(...args);
         this.afterInit();
     }
 
-    afterInit() {
+    afterInit()
+    {
 
     }
 
-    init() {
+    init()
+	{
         this.$element = $(`<${this.getElementTag()}/>`);
-        if (this.id !== null) {
+        if (this.id !== null)
+        {
             this.$element.attr("id", this.getId());
         }
         this.$container = this.$element;
 	}
 
-    getElementTag() {
+    getElementTag()
+    {
         return "div";
     }
 
 
 
-    addStyleClass(...args) {
+    addStyleClass(...args)
+    {
         this.$element.addClass(...args);
     }
 
-    removeStyleClass(...args) {
+    removeStyleClass(...args)
+    {
         this.$element.removeClass(...args);
     }
 
-    toggleStyleClass(...args) {
+    toggleStyleClass(...args)
+    {
         this.$element.toggleClass(...args);
     }
 
-    show(...args) {
+    show(...args)
+	{
 		this.$element.show(...args);
 	}
 
-	hide(...args) {
+	hide(...args)
+	{
 		this.$element.hide(...args);
 	}
 
-    toggle(...args) {
+    toggle(...args)
+    {
         this.$element.toggle(...args);
     }
 
 
 
 
-    placeAt(target) {
+    placeAt(target)
+    {
         const $target = (target instanceof jQuery ? target : $(target));
         $target.append(this.$element);
     }
 
 
 
-    $(...args) {
+    $(...args)
+    {
         return this.$element.find(...args);
     }
 
 
 
-    addSubview(subview, $container = this.$container) {
-        if (subview.getParent()) {
+    addSubview(subview, $container = this.$container)
+    {
+        if (subview.getParent())
+        {
             subview.removeFromParent();
         }
         this.addAggregation("subviews", subview);
@@ -85,27 +101,35 @@ export default class View extends ManagedObject {
         return this;
     }
 
-    removeSubview(subview, neverUseAgain = false) {
+    removeSubview(subview, neverUseAgain = false)
+    {
         const result = this.removeAggregation("subviews", subview);
-        if (result) {
-            if (neverUseAgain) {
+        if (result)
+        {
+            if (neverUseAgain)
+            {
                 subview.$element.remove();
             }
-            else {
+            else
+            {
                 subview.$element.detach();
             }
         }
         return result;
     }
 
-    removeAllSubviews(neverUseAgain = false) {
-        while (this.getSubviews().length > 0) {
+    removeAllSubviews(neverUseAgain = false)
+    {
+        while (this.getSubviews().length > 0)
+        {
             this.removeSubview(this.getSubviews()[0], neverUseAgain);
         }
     }
 
-    removeFromParent() {
-        if (this.getParent()) {
+    removeFromParent()
+    {
+        if (this.getParent())
+        {
             this.getParent().removeSubview(this);
         }
     }
@@ -115,7 +139,8 @@ export default class View extends ManagedObject {
 
 
 
-	toString() {
+	toString()
+	{
 		return `${this.getMetadata().getName()}[${this.getId()}]`;
 	}
 }
