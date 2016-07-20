@@ -23,11 +23,14 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.1",
+    "gulp-util": "^3.0.7",
+    "leaflet": "^0.7.7",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "rimraf": "^2.5.3",
     "style-loader": "^0.13.1",
     "ui5-loader": "^1.0.3",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }

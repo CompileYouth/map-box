@@ -1,18 +1,18 @@
+"use strict";
+
 const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     context: path.resolve("./src"),
     entry: {
+        "vendor": [ "leaflet" ],
         "mb": [ "./mb/app/ApplicationController.js", "./mb/resource/index.less" ]
     },
     output: {
-        path: "./public/assets",
+        path: path.resolve("./public/assets"),
         publicPath: "/assets/",
         filename: "[name]/index.js"
-    },
-    devServer: {
-        contentBase: "./public"
     },
     module: {
         loaders: [
@@ -30,7 +30,6 @@ module.exports = {
             }
         ]
     },
-
     plugins: [
         new ExtractTextPlugin("./[name]/resource/index.css")
     ]
