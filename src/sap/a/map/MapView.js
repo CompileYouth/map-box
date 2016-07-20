@@ -44,7 +44,7 @@ export default class MapView extends View {
 
     _initMap() {
         const options = {
-            zoomControl: false,
+            zoomControl: true,
 			attributionControl: false,
 			center: this.getDefaultCenterLocation(),
 			zoom: this.getDefaultZoom(),
@@ -61,4 +61,28 @@ export default class MapView extends View {
     invalidateSize(...args) {
         this.map.invalidateSize(...args);
     }
+
+    getCenterLocation() {
+		return this.map.getCenter();
+	}
+
+	setCenterLocation(centerLocation, zoom, options) {
+		this.map.setView(centerLocation, zoom, options);
+	}
+
+    getBounds() {
+        return this.map.getBounds();
+    }
+
+    setBounds(bounds) {
+        this.map.fitBounds(bounds);
+    }
+
+    getZoom() {
+		return this.map.getZoom();
+	}
+
+	setZoom(zoom) {
+			this.map.setZoom(zoom);
+	}
 }
