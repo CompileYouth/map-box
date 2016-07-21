@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" charset="utf-8">
     <link rel="stylesheet" href="assets/mb/resource/index.css" charset="utf-8">
     <script src="assets/vendor/index.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=e61a4757350413f4ed953b589a65c0a6"></script>
     <script src="vendor/open-ui5/resources/sap-ui-core.js" charset="utf-8"
         data-sap-ui-resourceroots='{ "sap.a": "/assets/sap/a", "mb": "/assets/mb" }'></script>
 </head>
@@ -19,7 +20,12 @@
             }
         });
         applicationController.getView().placeAt(document.body);
-        applicationController.run();
+
+        AMap.service([ "AMap.Driving" ], function(res) {
+            applicationController.run();
+        });
+
+
     });
 </script>
 </body>

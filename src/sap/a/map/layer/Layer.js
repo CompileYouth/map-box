@@ -35,7 +35,6 @@ export default class Layer extends ManagedObject {
 
     fitBounds() {
         if (this.getParent()) {
-            console.log(this.getBounds());
             this.getParent().setBounds(this.getBounds());
         }
     }

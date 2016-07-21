@@ -1,4 +1,7 @@
 import Layer from "sap/a/map/layer/Layer";
+
+import CorUtil from "../../util/CorUtil";
+
 export default class ExampleLayer extends Layer {
 
     metadata = {
@@ -36,22 +39,27 @@ export default class ExampleLayer extends Layer {
         this._redrawEndMarker();
     }
 
-    drawRoute() {
+    drawRoute(routes) {
         this.routeGroup.clearLayers();
-        const routePolyline = L.polyline([this.getStartLocation(), this.getEndLocation()], {color: 'red'});
-        this.routeGroup.addLayer(routePolyline);
+        routes.steps.forEach((route) => {
+            const start = CorUtil.getInstance().gcj02towgs84(route.start_location.lng, route.start_location.lat);
+            const end = CorUtil.getInstance().gcj02towgs84(route.end_location.lng, route.end_location.lat);
+            const polyline = L.polyline([ [ start[1], start[0] ], [ end[1], end [0] ] ]);
+            this.routeGroup.addLayer(polyline);
+        });
     }
 
     _redrawStartMarker() {
         if (!this.startMarker) {
+            console.log(this.getStartLocation());
             this.startMarker = L.circleMarker(this.getStartLocation(), {
                 color: "green",
                 opacity: 0.8,
                 fillColor: "green",
                 fillOpacity: 0.8
             });
-            this.startMarker.setRadius(20);
-
+            this.startMarker.setRadius(10);
+            
             this.markerGroup.addLayer(this.startMarker);
         }
         else {
@@ -67,7 +75,7 @@ export default class ExampleLayer extends Layer {
                 fillColor: "red",
                 fillOpacity: 0.8
             });
-            this.endMarker.setRadius(20);
+            this.endMarker.setRadius(10);
             this.container.addLayer(this.endMarker);
         }
         else {

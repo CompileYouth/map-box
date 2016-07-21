@@ -14,7 +14,7 @@ export default class MapView extends View {
 			},
 			minZoom: {
 				type: "int",
-				defaultValue: 11
+				defaultValue: 1
 			},
 			maxZoom: {
 				type: "int",
@@ -83,7 +83,6 @@ export default class MapView extends View {
 	}
 
 	setBounds(bounds) {
-        console.log(bounds);
 		this.map.fitBounds(bounds);
 	}
 
