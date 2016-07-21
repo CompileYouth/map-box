@@ -7,7 +7,7 @@ export default class Layer extends ManagedObject {
 	}
 
     init() {
-        this.container = L.layerGroup();
+        this.container = L.featureGroup();
     }
 
     afterInit() {
@@ -26,6 +26,17 @@ export default class Layer extends ManagedObject {
         const parent = this.getParent();
         if (parent) {
             parent.removeLayer(this);
+        }
+    }
+
+    getBounds() {
+        return this.container.getBounds();
+    }
+
+    fitBounds() {
+        if (this.getParent()) {
+            console.log(this.getBounds());
+            this.getParent().setBounds(this.getBounds());
         }
     }
 }

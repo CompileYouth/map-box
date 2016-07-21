@@ -83,6 +83,7 @@ export default class MapView extends View {
 	}
 
 	setBounds(bounds) {
+        console.log(bounds);
 		this.map.fitBounds(bounds);
 	}
 
