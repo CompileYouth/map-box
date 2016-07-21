@@ -21,11 +21,7 @@
         });
         applicationController.getView().placeAt(document.body);
 
-        AMap.service([ "AMap.Driving" ], function(res) {
-            applicationController.run();
-        });
-
-
+        applicationController.run();
     });
 </script>
 </body>

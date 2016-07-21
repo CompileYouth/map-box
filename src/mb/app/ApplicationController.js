@@ -1,5 +1,7 @@
 import AdaptiveApplicationController from "sap/a/app/ApplicationController";
 
+import ServiceClient from "../../gd/service/ServiceClient";
+
 import Application from "./Application";
 import CorUtil from "../util/CorUtil";
 
@@ -9,11 +11,13 @@ export default class ApplicationController extends AdaptiveApplicationController
     }
 
     run() {
-        AMap.convertFrom([[118.755, 31.979], [118.77881, 32.04389]], "gps", (status,result) => {
-            if (status === "complete") {
-                const locations = result.locations;
-                this.view.mapView.searchRoute([locations[0].lng, locations[0].lat], [locations[1].lng, locations[1].lat]);
-            }
+        setTimeout(() => {
+            const serviceClient = ServiceClient.getInstance();
+            serviceClient.attachReady((e) => {
+                serviceClient.convertToGcj02([[31.979, 118.755], [32.04389, 118.77881]]).then((result) => {
+                    this.view.mapView.searchRoute(result);
+                }, (reason) => {});
+            });
         });
     }
 }

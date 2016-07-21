@@ -1,6 +1,8 @@
 import AdaptiveMapView from "sap/a/map/MapView";
 import TileLayer from "sap/a/map/layer/TileLayer";
 
+import ServiceClient from "gd/service/ServiceClient";
+
 import ExampleLayer from "./layer/ExampleLayer";
 import CorUtil from "../util/CorUtil";
 
@@ -20,19 +22,18 @@ export default class MapView extends AdaptiveMapView {
         this.addLayer(this.exampleLayer);
     }
 
-    searchRoute(startLocation, endLocation) {
-        const start = CorUtil.getInstance().gcj02towgs84(startLocation[0], startLocation[1]);
-        const end = CorUtil.getInstance().gcj02towgs84(endLocation[0], endLocation[1]);
-
+    searchRoute(locations) {
+        const serviceClient = ServiceClient.getInstance();
+        const start = serviceClient.convertToWgs84(locations[0].lat, locations[0].lng);
+        const end = serviceClient.convertToWgs84(locations[1].lat, locations[1].lng);
         this.exampleLayer.applySettings({
-            startLocation: [start[1], start[0]],
-            endLocation: [end[1], end[0]]
+            startLocation: L.latLng(start),
+            endLocation: L.latLng(end)
         });
-        const driving= new AMap.Driving();
-        driving.search(startLocation, endLocation, (status, result) => {
-            this.exampleLayer.drawRoute(result.routes[0]);
-            this.exampleLayer.fitBounds();
-        });
+        this.exampleLayer.fitBounds();
 
+        serviceClient.searchDrivingRoute(locations).then((result) => {
+            this.exampleLayer.drawRoute(result);
+        }, (reason) => {});
     }
 }
