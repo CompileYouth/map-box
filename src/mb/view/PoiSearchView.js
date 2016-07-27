@@ -5,12 +5,6 @@ export default class PoiSearchView extends View {
         properties: {
             keyword: {
                 type: "string"
-            },
-            selectedPoi: {
-                type: "object", bindable: true
-            },
-            queryPoi: {
-                type: "object", bindable: true
             }
         },
         events: {
@@ -57,14 +51,6 @@ export default class PoiSearchView extends View {
 
     setKeyword(keyword) {
         this.$searchInput.val(keyword);
-    }
-
-    setSelectedPoi(selectedPoi) {
-        this.setProperty("selectedPoi", selectedPoi);
-    }
-
-    setQueryPoi(queryPoi) {
-        this.setProperty("queryPoi", queryPoi);
     }
 
     // if result isn't null, get the first result

@@ -1,4 +1,7 @@
 import ViewController from "sap/a/view/ViewController";
+
+import ServiceClient from "gd/service/ServiceClient";
+
 import MapView from "./MapView";
 
 export default class MapViewController extends ViewController {
@@ -9,14 +12,25 @@ export default class MapViewController extends ViewController {
     afterInit() {
         super.afterInit();
 
-        console.log(this.view);
+        this.view.map.on("click", this._mapclick.bind(this));
     }
 
     createView(options) {
         return new MapView(options);
     }
+
     initView() {
         super.initView();
+    }
 
+    _mapclick(e) {
+        const serviceClient = ServiceClient.getInstance();
+        const latlng = e.latlng;
+        const lat = latlng.lat;
+        const lng = latlng.lng;
+
+        serviceClient.getAddressByLatlng(lat,lng).then((res) => {
+            console.log(res);
+        }, (reason) => {});
     }
 }

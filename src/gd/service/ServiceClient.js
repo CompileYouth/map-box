@@ -18,12 +18,13 @@ export default class ServiceClient extends ManagedObject {
     }
 
     init() {
-        AMap.service([ "AMap.Driving", "AMap.Autocomplete" ], () => {
+        AMap.service([ "AMap.Driving", "AMap.Autocomplete", "AMap.Geocoder" ], () => {
             const options = {
                 city: "南京市"
             };
             this.autoComplete = new AMap.Autocomplete(options);
             this.driving = new AMap.Driving(options);
+            this.geocoder = new AMap.Geocoder(options);
             setTimeout(() => {
                 this.fireReady();
             });
@@ -47,6 +48,22 @@ export default class ServiceClient extends ManagedObject {
                         }
                     });
                     resolve(tips);
+                }
+                else {
+                    reject({
+                        status,
+                        info: result.info
+                    });
+                }
+            });
+        });
+    }
+
+    getAddressByLatlng(lat, lng) {
+        return new Promise((resolve, reject) => {
+            this.geocoder.getAddress([lng, lat], (status, result) => {
+                if (status === "complete" && result.info === "OK") {
+                    resolve(result);
                 }
                 else {
                     reject({

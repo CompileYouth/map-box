@@ -9,8 +9,6 @@ export default class MapView extends AdaptiveMapView {
     afterInit() {
         super.afterInit();
         this.addStyleClass("mb-map-view");
-
-        this.map.on("click", this._mapclick.bind(this));
     }
 
     initLayers() {
@@ -36,9 +34,5 @@ export default class MapView extends AdaptiveMapView {
         serviceClient.searchDrivingRoute(locations).then((result) => {
             this.exampleLayer.drawRoute(result);
         }, (reason) => {});
-    }
-
-    _mapclick(e) {
-        console.log(e.latlng);
     }
 }
