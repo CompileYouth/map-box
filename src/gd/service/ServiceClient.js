@@ -18,8 +18,12 @@ export default class ServiceClient extends ManagedObject {
     }
 
     init() {
-        AMap.service([ "AMap.Driving" ], () => {
-            this.driving = new AMap.Driving();
+        AMap.service([ "AMap.Driving", "AMap.Autocomplete" ], () => {
+            const options = {
+                city: "南京市"
+            };
+            this.autoComplete = new AMap.Autocomplete(options);
+            this.driving = new AMap.Driving(options);
             setTimeout(() => {
                 this.fireReady();
             });
@@ -29,6 +33,29 @@ export default class ServiceClient extends ManagedObject {
         this.PI = 3.1415926535897932384626;
         this.a = 6378245.0;
         this.ee = 0.00669342162296594323;
+    }
+
+    searchPoiAutoComplete(keyword) {
+        return new Promise((resolve, reject) => {
+            this.autoComplete.search(keyword, (status, result) => {
+                if (status === "complete" && result.info === "OK") {
+                    const tips = result.tips.map((val) => {
+                        return {
+                            name: val.name,
+                            district: val.district,
+                            location: this.convertToWgs84(val.location.lat, val.location.lng)
+                        }
+                    });
+                    resolve(tips);
+                }
+                else {
+                    reject({
+                        status,
+                        info: result.info
+                    });
+                }
+            });
+        });
     }
 
     searchDrivingRoute(locations) {

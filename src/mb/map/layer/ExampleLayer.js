@@ -2,8 +2,6 @@ import Layer from "sap/a/map/layer/Layer";
 
 import ServiceClient from "gd/service/ServiceClient";
 
-import CorUtil from "../../util/CorUtil";
-
 export default class ExampleLayer extends Layer {
 
     metadata = {
