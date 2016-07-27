@@ -46,11 +46,11 @@ export default class ApplicationController extends AdaptiveApplicationController
 
     _selectedPoiChanged(e) {
         const selectedPoi = this.model.getProperty("/selectedPoi");
-        console.log(selectedPoi);
-        this.view.mapView.setCenterLocation(selectedPoi.locations, 16);
+        this.view.mapView.setCenterLocation(selectedPoi.location, 16);
     }
 
     _queryPoiChanged(e) {
-
+        const queryPoi = this.model.getProperty("/queryPoi");
+        this.view.poiSearchView.setKeyword(queryPoi.name);
     }
 }

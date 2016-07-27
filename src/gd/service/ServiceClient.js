@@ -61,18 +61,33 @@ export default class ServiceClient extends ManagedObject {
 
     getAddressByLatlng(lat, lng) {
         return new Promise((resolve, reject) => {
-            this.geocoder.getAddress([lng, lat], (status, result) => {
-                if (status === "complete" && result.info === "OK") {
-                    resolve(result);
-                }
-                else {
-                    reject({
-                        status,
-                        info: result.info
-                    });
-                }
-            });
+            this.convertToGcj02([[lat, lng]]).then((res) => {
+                const latlng = res[0];
+                this.geocoder.getAddress([latlng.lng, latlng.lat], (status, result) => {
+                    if (status === "complete" && result.info === "OK") {
+                        const ac = result.regeocode.addressComponent;
+                        const prefix = this._getFormatString(ac.province) + this._getFormatString(ac.city)
+                                        + this._getFormatString(ac.district) + this._getFormatString(ac.township);
+                        resolve(result.regeocode.formattedAddress.replace(prefix, ""));
+                    }
+                    else {
+                        reject({
+                            status,
+                            info: result.info
+                        });
+                    }
+                });
+            }, (reason) => {});
         });
+    }
+
+    _getFormatString(str) {
+        if (typeof str === "string") {
+            return str;
+        }
+        else {
+            return "";
+        }
     }
 
     searchDrivingRoute(locations) {
@@ -90,6 +105,7 @@ export default class ServiceClient extends ManagedObject {
         });
     }
 
+    // locations: [[lat, lng]]
     convertToGcj02(locations) {
         return new Promise((resolve, reject) => {
             const locs = locations.map((location) => {

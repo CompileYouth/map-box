@@ -30,7 +30,11 @@ export default class MapViewController extends ViewController {
         const lng = latlng.lng;
 
         serviceClient.getAddressByLatlng(lat,lng).then((res) => {
-            console.log(res);
+            const model = sap.ui.getCore().getModel();
+            model.setProperty("/queryPoi", {
+                name: res,
+                locations: [lat, lng]
+            })
         }, (reason) => {});
     }
 }

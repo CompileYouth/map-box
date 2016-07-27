@@ -25,8 +25,8 @@ export default class PoiSearchViewController extends ViewController {
             const model = sap.ui.getCore().getModel();
             model.setProperty("/selectedPoi", {
                 name: poi.name,
-                locations: poi.location
-            })
+                location: poi.location
+            });
         }, (reason) => {});
     }
 }
