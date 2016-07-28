@@ -1,3 +1,4 @@
+import BaseListView from "sap/a/view/BaseListView";
 import ViewController from "sap/a/view/ViewController";
 
 import ServiceClient from "gd/service/ServiceClient";
