@@ -12,7 +12,7 @@ export default class MapViewController extends ViewController {
     afterInit() {
         super.afterInit();
 
-        this.view.attachMapclick(this._map_click.bind(this));
+        this.view.attachMapClick(this._map_click.bind(this));
     }
 
     createView(options) {

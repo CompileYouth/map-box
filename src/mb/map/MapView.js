@@ -8,7 +8,9 @@ import ExampleLayer from "./layer/ExampleLayer";
 export default class MapView extends AdaptiveMapView {
     metadata = {
         events: {
-            mapclick: {}
+            mapClick: {
+                parameters: { location: "object" }
+            }
         }
     }
 
@@ -30,11 +32,8 @@ export default class MapView extends AdaptiveMapView {
     }
 
     _map_click(e) {
-        this.fireMapclick({
-            location: {
-                lat: e.latlng.lat,
-                lng: e.latlng.lng
-            }
+        this.fireMapClick({
+            location: e.latlng
         });
     }
 }

@@ -21,6 +21,7 @@ export default class POISearchViewController extends ViewController {
         const keyword = e.getParameter("keyword");
         const serviceClient = ServiceClient.getInstance();
         serviceClient.searchPoiAutoComplete(keyword).then((res) => {
+            console.log(res);
             const poi = res[0];
             const model = sap.ui.getCore().getModel();
             model.setProperty("/selectedPoi", {
