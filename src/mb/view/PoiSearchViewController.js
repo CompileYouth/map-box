@@ -41,6 +41,9 @@ export default class POISearchViewController extends ViewController {
         const item = e.getParameter("item");
         const model = sap.ui.getCore().getModel();
         console.log(item);
+
+        //TODO 1. Judge item if illgel.
+        //TODO 2. If selectedPoi is the same.
         model.setProperty("/selectedPoi", {
             name: item.name,
             location: item.location
