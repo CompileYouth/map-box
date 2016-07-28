@@ -1,4 +1,3 @@
-import BaseListView from "sap/a/view/BaseListView";
 import ViewController from "sap/a/view/ViewController";
 
 import ServiceClient from "gd/service/ServiceClient";
@@ -9,6 +8,13 @@ export default class POISearchViewController extends ViewController {
     init() {
         super.init();
     }
+
+    afterInit() {
+        super.afterInit();
+
+        this.view.suggestionListView.attachItemClick(this._itemClick.bind(this))
+    }
+
     createView(options) {
         const opt = $.extend({
             poi: "{/selectedPoi}"
@@ -25,14 +31,19 @@ export default class POISearchViewController extends ViewController {
         const keyword = e.getParameter("keyword");
         const serviceClient = ServiceClient.getInstance();
         serviceClient.searchPoiAutoComplete(keyword).then((res) => {
-            console.log(res);
-            const poi = res[0];
+            const pois = res;
+            this.view.suggestionListView.setItems(pois);
+            this.view.suggestionListView.show();
+        });
+    }
 
-            const model = sap.ui.getCore().getModel();
-            model.setProperty("/selectedPoi", {
-                name: poi.name,
-                location: poi.location
-            });
-        }, (reason) => {});
+    _itemClick(e) {
+        const item = e.getParameter("item");
+        const model = sap.ui.getCore().getModel();
+        console.log(item);
+        model.setProperty("/selectedPoi", {
+            name: item.name,
+            location: item.location
+        });
     }
 }
