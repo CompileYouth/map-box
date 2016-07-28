@@ -33,8 +33,6 @@ export default class View extends ManagedObject {
         return "div";
     }
 
-
-
     addStyleClass(...args) {
         this.$element.addClass(...args);
     }
@@ -59,21 +57,14 @@ export default class View extends ManagedObject {
         this.$element.toggle(...args);
     }
 
-
-
-
     placeAt(target) {
         const $target = (target instanceof jQuery ? target : $(target));
         $target.append(this.$element);
     }
 
-
-
     $(...args) {
         return this.$element.find(...args);
     }
-
-
 
     addSubview(subview, $container = this.$container) {
         if (subview.getParent()) {
@@ -109,11 +100,6 @@ export default class View extends ManagedObject {
             this.getParent().removeSubview(this);
         }
     }
-
-
-
-
-
 
 	toString() {
 		return `${this.getMetadata().getName()}[${this.getId()}]`;

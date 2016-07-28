@@ -1,0 +1,63 @@
+.mb-view-poi-search-view {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    z-index: 999;
+    width: 400px;
+    height: 45px;
+    box-shadow: 0px 0px 5px #333;
+
+    .input-box {
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+        width: 400px;
+        background: white;
+
+        .search-input {
+            position: absolute;
+            top: 5px;
+            bottom: 5px;
+            left: 15px;
+            width: 300px;
+            border:none;
+            outline: none;
+            background-color: transparent;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .clear-btn {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .search-btn {
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+                color: #87C4FA;
+            }
+        }
+    }
+}

@@ -5,8 +5,13 @@ import View from "./View";
 export default class ViewController extends ManagedObject {
     metadata = {
         properties: {
-            viewOptions: { type: "object", defaultValue: {} }
-        }
+            viewOptions: { type: "object" }
+        },
+        aggregations: {
+			childViewControllers: {
+				type: "sap.a.view.ViewController"
+			}
+		}
     };
 
     constructor(...args) {
@@ -28,11 +33,9 @@ export default class ViewController extends ManagedObject {
         }
     }
 
-
     getView() {
         return this.view;
     }
-
 
     createView(options) {
         throw new Error("createView(options) must be override in the derived class.");
@@ -40,5 +43,32 @@ export default class ViewController extends ManagedObject {
 
     initView() {
 
+    }
+
+    addChildViewController(childViewController, $container) {
+        this.addAggregation("childViewControllers", childViewController);
+        this.view.addSubview(childViewController.view, $container);
+        return this;
+    }
+
+    removeChildViewController(childViewController, neverUseAgain) {
+        const result = this.removeAggregation("childViewControllers", childViewController);
+        if (result) {
+            this.view.removeSubview(childViewController.view, neverUseAgain);
+        }
+        return result;
+    }
+
+    removeAllChildViewController(neverUseAgain) {
+        while (this.getChildViewControllers().length > 0) {
+            this.removeChildViewController(this.getChildViewControllers()[0], neverUseAgain);
+        }
+    }
+
+    setModel(model, name) {
+        super.setModel(model);
+        if (this.view) {
+            this.view.setModel(model, name);
+        }
     }
 }
