@@ -53,24 +53,24 @@ export default class PoiSearchView extends View {
         this.$searchInput.val(keyword);
     }
 
+    _onkeydown(e) {
+        if (e.keyCode === 13) {
+            this._search();
+        }
+    }
+
+    _onsearchBtnclick(e) {
+        this._search();
+    }
+
     // if result isn't null, get the first result
-    search() {
+    _search() {
         const keyword = this.getKeyword();
         if (!(keyword === "" || keyword === null || keyword === undefined)) {
             this.fireSearch({
                 keyword
             });
         }
-    }
-
-    _onkeydown(e) {
-        if (e.keyCode === 13) {
-            this.search();
-        }
-    }
-
-    _onsearchBtnclick(e) {
-        this.search();
     }
 
     _onclearBtnclick() {
