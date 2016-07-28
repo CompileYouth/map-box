@@ -2,14 +2,14 @@ import ViewController from "sap/a/view/ViewController";
 
 import ServiceClient from "gd/service/ServiceClient";
 
-import PoiSearchView from "./PoiSearchView";
+import POISearchView from "./POISearchView";
 
-export default class PoiSearchViewController extends ViewController {
+export default class POISearchViewController extends ViewController {
     init() {
         super.init();
     }
     createView(options) {
-        return new PoiSearchView(options);
+        return new POISearchView(options);
     }
     initView() {
         super.initView();

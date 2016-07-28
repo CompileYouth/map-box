@@ -1,6 +1,6 @@
 import View from "sap/a/view/View";
 
-export default class PoiSearchView extends View {
+export default class POISearchView extends View {
     metadata = {
         properties: {
             keyword: {

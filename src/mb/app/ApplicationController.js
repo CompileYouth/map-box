@@ -5,7 +5,7 @@ import ServiceClient from "../../gd/service/ServiceClient";
 import Application from "./Application";
 import Model from "../model/Model";
 import MapViewController from "../map/MapViewController";
-import PoiSearchViewController from "../view/PoiSearchViewController";
+import POISearchViewController from "../view/POISearchViewController";
 
 export default class ApplicationController extends AdaptiveApplicationController {
     init() {
@@ -17,7 +17,7 @@ export default class ApplicationController extends AdaptiveApplicationController
     afterInit() {
         super.afterInit();
 
-        this._initPoiSearchViewController();
+        this._initPOISearchViewController();
         this._initMapViewController();
 
         const model = sap.ui.getCore().getModel();
@@ -28,8 +28,8 @@ export default class ApplicationController extends AdaptiveApplicationController
         queryPoiBinding.attachChange(this._queryPoiChanged.bind(this))
     }
 
-    _initPoiSearchViewController() {
-        this.poiSearchViewController = new PoiSearchViewController("view-poi-search-view-controller");
+    _initPOISearchViewController() {
+        this.poiSearchViewController = new POISearchViewController("view-poi-search-view-controller");
         this.addChildViewController(this.poiSearchViewController);
     }
 
