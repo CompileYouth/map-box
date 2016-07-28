@@ -54,7 +54,7 @@ export default class ViewController extends ManagedObject {
     removeChildViewController(childViewController, neverUseAgain) {
         const result = this.removeAggregation("childViewControllers", childViewController);
         if (result) {
-            this.view.removeSubview(childViewController, neverUseAgain);
+            this.view.removeSubview(childViewController.view, neverUseAgain);
         }
         return result;
     }

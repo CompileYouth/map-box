@@ -6,9 +6,17 @@ import ServiceClient from "gd/service/ServiceClient";
 import ExampleLayer from "./layer/ExampleLayer";
 
 export default class MapView extends AdaptiveMapView {
+    metadata = {
+        events: {
+            mapclick: {}
+        }
+    }
+
     afterInit() {
         super.afterInit();
         this.addStyleClass("mb-map-view");
+
+        this.map.on("click", this._map_click.bind(this));
     }
 
     initLayers() {
@@ -21,18 +29,12 @@ export default class MapView extends AdaptiveMapView {
         this.addLayer(this.exampleLayer);
     }
 
-    searchRoute(locations) {
-        const serviceClient = ServiceClient.getInstance();
-        const start = serviceClient.convertToWgs84(locations[0].lat, locations[0].lng);
-        const end = serviceClient.convertToWgs84(locations[1].lat, locations[1].lng);
-        this.exampleLayer.applySettings({
-            startLocation: L.latLng(start),
-            endLocation: L.latLng(end)
+    _map_click(e) {
+        this.fireMapclick({
+            location: {
+                lat: e.latlng.lat,
+                lng: e.latlng.lng
+            }
         });
-        this.exampleLayer.fitBounds();
-
-        serviceClient.searchDrivingRoute(locations).then((result) => {
-            this.exampleLayer.drawRoute(result);
-        }, (reason) => {});
     }
 }
