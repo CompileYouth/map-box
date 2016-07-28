@@ -48,7 +48,7 @@ export default class MapViewController extends ViewController {
             const model = sap.ui.getCore().getModel();
             model.setProperty("/queryPoi", {
                 name: res,
-                locations: [lat, lng]
+                location: [lat, lng]
             })
         }, (reason) => {});
     }
