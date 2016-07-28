@@ -3,8 +3,9 @@ import View from "sap/a/view/View";
 export default class POISearchView extends View {
     metadata = {
         properties: {
-            keyword: {
-                type: "string"
+            poi: {
+                type: "object",
+                bindable: true
             }
         },
         events: {
@@ -45,12 +46,15 @@ export default class POISearchView extends View {
         super.afterInit();
     }
 
-    getKeyword() {
-        return this.$searchInput.val();
+    setPoi(poi) {
+        this.setProperty("poi", poi);
+        if (poi) {
+            this.$searchInput.val(poi.name);
+        }
     }
 
-    setKeyword(keyword) {
-        this.$searchInput.val(keyword);
+    getKeyword() {
+        return this.$searchInput.val();
     }
 
     _onkeydown(e) {
@@ -63,7 +67,6 @@ export default class POISearchView extends View {
         this._search();
     }
 
-    // if result isn't null, get the first result
     _search() {
         const keyword = this.getKeyword();
         if (!(keyword === "" || keyword === null || keyword === undefined)) {

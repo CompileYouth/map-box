@@ -64,4 +64,11 @@ export default class ViewController extends ManagedObject {
             this.removeChildViewController(this.getChildViewControllers()[0], neverUseAgain);
         }
     }
+
+    setModel(model, name) {
+        super.setModel(model);
+        if (this.view) {
+            this.view.setModel(model, name);
+        }
+    }
 }

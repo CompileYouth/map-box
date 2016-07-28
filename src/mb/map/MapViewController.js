@@ -16,7 +16,10 @@ export default class MapViewController extends ViewController {
     }
 
     createView(options) {
-        return new MapView(options);
+        const opt = $.extend({
+            "selectedPoi": "{/selectedPoi}"
+        }, options);
+        return new MapView(opt);
     }
 
     initView() {
@@ -50,6 +53,6 @@ export default class MapViewController extends ViewController {
                 name: res,
                 location: [lat, lng]
             })
-        }, (reason) => {});
+        });
     }
 }

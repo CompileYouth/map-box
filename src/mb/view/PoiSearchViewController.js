@@ -9,7 +9,10 @@ export default class POISearchViewController extends ViewController {
         super.init();
     }
     createView(options) {
-        return new POISearchView(options);
+        const opt = $.extend({
+            poi: "{/selectedPoi}"
+        }, options);
+        return new POISearchView(opt);
     }
     initView() {
         super.initView();
@@ -23,6 +26,7 @@ export default class POISearchViewController extends ViewController {
         serviceClient.searchPoiAutoComplete(keyword).then((res) => {
             console.log(res);
             const poi = res[0];
+
             const model = sap.ui.getCore().getModel();
             model.setProperty("/selectedPoi", {
                 name: poi.name,
