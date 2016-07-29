@@ -47,13 +47,9 @@ export default class POISearchViewController extends ViewController {
             return;
         }
 
-        // If selectedPoi is the same with the item.
         const preItem = model.getProperty("/selectedPoi");
-        if (preItem && preItem.name === item.name && preItem.location[0] === item.location[0] && preItem.location[1] === item.location[1]) {
-            model.setProperty("/selectedPoi", null);
-        }
-
-        model.setProperty("/selectedPoi", {
+        //model.setProperty("/selectedPoi", null);
+        model.forceSetProperty("/selectedPoi", {
             name: item.name,
             location: item.location
         });
