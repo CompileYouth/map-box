@@ -27,8 +27,18 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+            },
+            {
+                test: /\.(png|jpg)$/,
+                loader: "file-loader?name=[path][name]_[hash].[ext]"
             }
         ]
+    },
+    resolve: {
+        root: path.resolve("./"),
+        alias: {
+            mb: path.resolve("./src/mb")
+        }
     },
     plugins: [
         new ExtractTextPlugin("./[name]/resource/index.css")
