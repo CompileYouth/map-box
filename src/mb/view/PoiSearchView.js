@@ -34,14 +34,13 @@ export default class POISearchView extends View {
         `);
 
         this.$searchInput = this.$(".search-input");
-        this.$clearBtn = this.$(".clear-btn");
-        this.$searchBtn = this.$(".search-btn");
+        const $clearBtn = this.$(".clear-btn");
+        const $searchBtn = this.$(".search-btn");
 
         this.$container.on("keydown", this._onkeydown.bind(this));
-        this.timer = null;
         this.$searchInput.on("input", this._oninput.bind(this));
-        this.$searchBtn.on("click", this._onsearchBtnclick.bind(this));
-        this.$clearBtn.on("click", this._onclearBtnclick.bind(this));
+        $searchBtn.on("click", this._onsearchBtnclick.bind(this));
+        $clearBtn.on("click", this._onclearBtnclick.bind(this));
 
         this._initSuggestionListView();
         this._initWarningView();

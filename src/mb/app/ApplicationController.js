@@ -6,6 +6,7 @@ import Application from "./Application";
 import Model from "../model/Model";
 import MapViewController from "../map/MapViewController";
 import POISearchViewController from "../view/POISearchViewController";
+import ODSearchViewController from "../view/ODSearchViewController";
 
 export default class ApplicationController extends AdaptiveApplicationController {
     init() {
@@ -19,15 +20,13 @@ export default class ApplicationController extends AdaptiveApplicationController
 
         this._initModel();
 
+        this._initControllers();
+    }
+
+    _initControllers() {
         this._initPOISearchViewController();
         this._initMapViewController();
-
-        // const model = sap.ui.getCore().getModel();
-        // const selectedPoiBinding = model.bindProperty("/selectedPoi");
-        // selectedPoiBinding.attachChange(this._selectedPoiChanged.bind(this));
-        //
-        // const queryPoiBinding = model.bindProperty("/queryPoi");
-        // queryPoiBinding.attachChange(this._queryPoiChanged.bind(this));
+        this._initODSearchViewController();
     }
 
     _initPOISearchViewController() {
@@ -38,6 +37,11 @@ export default class ApplicationController extends AdaptiveApplicationController
     _initMapViewController() {
         this.mapViewController = new MapViewController("map-view-controller");
         this.addChildViewController(this.mapViewController);
+    }
+
+    _initODSearchViewController() {
+        this.odSearchViewController = new ODSearchViewController("view-od-search-view-controller");
+        this.addChildViewController(this.odSearchViewController);
     }
 
     _initModel() {
@@ -63,15 +67,4 @@ export default class ApplicationController extends AdaptiveApplicationController
         });
     }
 
-    // _selectedPoiChanged(e) {
-    //     const model = sap.ui.getCore().getModel();
-    //     const selectedPoi = model.getProperty("/selectedPoi");
-    //     this.mapViewController.view.setCenterLocation(selectedPoi.location, 16);
-    // }
-    //
-    // _queryPoiChanged(e) {
-    //     const model = sap.ui.getCore().getModel();
-    //     const queryPoi = model.getProperty("/queryPoi");
-    //     this.poiSearchViewController.view.setKeyword(queryPoi.name);
-    // }
 }
