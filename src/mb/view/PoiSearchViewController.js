@@ -40,17 +40,22 @@ export default class POISearchViewController extends ViewController {
     _itemClick(e) {
         const item = e.getParameter("item");
         const model = sap.ui.getCore().getModel();
-        console.log(item);
 
-        if (!item || Number.isNaN(item.location[0]) || Number.isNaN(item.location[1])) {
+        if (!item || !item.location || Number.isNaN(item.location[0]) || Number.isNaN(item.location[1])) {
             this.view.showWarning("无法查询此地址");
             return;
         }
 
-        //TODO 2. If selectedPoi is the same.
+        // If selectedPoi is the same with the item.
+        const preItem = model.getProperty("/selectedPoi");
+        if (preItem && preItem.name === item.name && preItem.location[0] === item.location[0] && preItem.location[1] === item.location[1]) {
+            model.setProperty("/selectedPoi", null);
+        }
+
         model.setProperty("/selectedPoi", {
             name: item.name,
             location: item.location
         });
+
     }
 }

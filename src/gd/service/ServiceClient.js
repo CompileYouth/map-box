@@ -46,7 +46,7 @@ export default class ServiceClient extends ManagedObject {
                         return {
                             name: val.name,
                             district: val.district,
-                            location: this.convertToWgs84(val.location.lat, val.location.lng)
+                            location: val.location ? this.convertToWgs84(val.location.lat, val.location.lng) : undefined
                         }
                     });
                     resolve(tips);
