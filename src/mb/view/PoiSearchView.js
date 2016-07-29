@@ -131,7 +131,7 @@ export default class POISearchView extends View {
 
     _search() {
         const keyword = this.getKeyword();
-        if (!(keyword === "" || keyword === null || keyword === undefined)) {
+        if (!(keyword.trim() === "" || keyword === null || keyword === undefined)) {
             this.fireSearch({
                 keyword
             });
