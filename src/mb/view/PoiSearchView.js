@@ -5,10 +5,8 @@ import SuggestionListView from "./SuggestionListView";
 export default class POISearchView extends View {
     metadata = {
         properties: {
-            poi: {
-                type: "object",
-                bindable: true
-            }
+            selectedPoi: { type: "object", bindable: true },
+            queryPoi: { type: "object", bindable: true }
         },
         events: {
             search: {
@@ -70,11 +68,19 @@ export default class POISearchView extends View {
         `);
     }
 
-    setPoi(poi) {
-        this.setProperty("poi", poi);
-        if (poi) {
-            this.$searchInput.val(poi.name);
+    setSelectedPoi(selectedPoi) {
+        this.setProperty("selectedPoi", selectedPoi);
+        if (selectedPoi) {
+            this.$searchInput.val(selectedPoi.name);
             this.suggestionListView.hide();
+        }
+    }
+
+    setQueryPoi(queryPoi) {
+        this.setProperty("queryPoi", queryPoi);
+
+        if (queryPoi) {
+            this.$searchInput.val(queryPoi.name);
         }
     }
 

@@ -21,10 +21,6 @@ export default class SelectedLayer extends Layer {
 
     setSelectedPoi(selectedPoi) {
         this.setProperty("selectedPoi", selectedPoi);
-
-        if (selectedPoi) {
-            console.log(selectedPoi);
-        }
     }
 
 }

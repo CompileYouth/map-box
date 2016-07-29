@@ -17,7 +17,8 @@ export default class MapViewController extends ViewController {
 
     createView(options) {
         const opt = $.extend({
-            "selectedPoi": "{/selectedPoi}"
+            "selectedPoi": "{/selectedPoi}",
+            "queryPoi": "{/queryPoi}"
         }, options);
         return new MapView(opt);
     }
@@ -38,7 +39,7 @@ export default class MapViewController extends ViewController {
 
         serviceClient.searchDrivingRoute(locations).then((result) => {
             this.view.exampleLayer.drawRoute(result);
-        }, (reason) => {});
+        });
     }
 
     _map_click(e) {
