@@ -46,6 +46,7 @@ export default class POISearchView extends View {
         this.$clearBtn.on("click", this._onclearBtnclick.bind(this));
 
         this._initSuggestionListView();
+        this._initWarningView();
     }
 
     afterInit() {
@@ -57,12 +58,38 @@ export default class POISearchView extends View {
         this.addSubview(this.suggestionListView);
     }
 
+    _initWarningView() {
+        this.$container.append(`
+            <div class="search-warning">
+                <span class="arrow"></span>
+                <div class="warning-container">
+                    <span class="iconfont icon-warning"></span>
+                    <span class="warning-text"></span>
+                </div>
+            </div>
+        `);
+    }
+
     setPoi(poi) {
         this.setProperty("poi", poi);
         if (poi) {
             this.$searchInput.val(poi.name);
             this.suggestionListView.hide();
         }
+    }
+
+    showWarning(reason) {
+        this.$(".warning-text").text(reason);
+        this.$(".search-warning").addClass("active");
+
+        if (this.timer) {
+            window.clearTimeout(this.timer);
+            this.timer = null;
+        }
+
+        this.timer = window.setTimeout(() => {
+            this.$(".search-warning").removeClass("active");
+        }, 3000);
     }
 
     getKeyword() {

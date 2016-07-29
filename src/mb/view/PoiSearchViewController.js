@@ -42,7 +42,11 @@ export default class POISearchViewController extends ViewController {
         const model = sap.ui.getCore().getModel();
         console.log(item);
 
-        //TODO 1. Judge item if illgel.
+        if (!item || Number.isNaN(item.location[0]) || Number.isNaN(item.location[1])) {
+            this.view.showWarning("无法查询此地址");
+            return;
+        }
+
         //TODO 2. If selectedPoi is the same.
         model.setProperty("/selectedPoi", {
             name: item.name,

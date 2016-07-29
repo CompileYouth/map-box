@@ -26,8 +26,4 @@ export default class SuggestionListView extends BaseListView {
         }
     }
 
-    showWarning(reason) {
-        console.error(reason);
-    }
-
 }
