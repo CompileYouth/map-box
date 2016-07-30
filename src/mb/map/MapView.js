@@ -46,7 +46,6 @@ export default class MapView extends AdaptiveMapView {
     setSelectedPoi(selectedPoi) {
         this.setProperty("selectedPoi", selectedPoi);
         if (selectedPoi) {
-            //this.view.selectedLayer.setSelectedPoi(selectedPoi);
             this.setCenterLocation(selectedPoi.location, 16);
         }
     }

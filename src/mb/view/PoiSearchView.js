@@ -5,10 +5,8 @@ import SuggestionListView from "./SuggestionListView";
 export default class POISearchView extends View {
     metadata = {
         properties: {
-            poi: {
-                type: "object",
-                bindable: true
-            }
+            selectedPoi: { type: "object", bindable: true },
+            queryPoi: { type: "object", bindable: true }
         },
         events: {
             search: {
@@ -36,16 +34,16 @@ export default class POISearchView extends View {
         `);
 
         this.$searchInput = this.$(".search-input");
-        this.$clearBtn = this.$(".clear-btn");
-        this.$searchBtn = this.$(".search-btn");
+        const $clearBtn = this.$(".clear-btn");
+        const $searchBtn = this.$(".search-btn");
 
         this.$container.on("keydown", this._onkeydown.bind(this));
-        this.timer = null;
         this.$searchInput.on("input", this._oninput.bind(this));
-        this.$searchBtn.on("click", this._onsearchBtnclick.bind(this));
-        this.$clearBtn.on("click", this._onclearBtnclick.bind(this));
+        $searchBtn.on("click", this._onsearchBtnclick.bind(this));
+        $clearBtn.on("click", this._onclearBtnclick.bind(this));
 
         this._initSuggestionListView();
+        this._initWarningView();
     }
 
     afterInit() {
@@ -57,12 +55,46 @@ export default class POISearchView extends View {
         this.addSubview(this.suggestionListView);
     }
 
-    setPoi(poi) {
-        this.setProperty("poi", poi);
-        if (poi) {
-            this.$searchInput.val(poi.name);
+    _initWarningView() {
+        this.$container.append(`
+            <div class="search-warning">
+                <span class="arrow"></span>
+                <div class="warning-container">
+                    <span class="iconfont icon-warning"></span>
+                    <span class="warning-text"></span>
+                </div>
+            </div>
+        `);
+    }
+
+    setSelectedPoi(selectedPoi) {
+        this.setProperty("selectedPoi", selectedPoi);
+        if (selectedPoi) {
+            this.$searchInput.val(selectedPoi.name);
             this.suggestionListView.hide();
         }
+    }
+
+    setQueryPoi(queryPoi) {
+        this.setProperty("queryPoi", queryPoi);
+
+        if (queryPoi) {
+            this.$searchInput.val(queryPoi.name);
+        }
+    }
+
+    showWarning(reason) {
+        this.$(".warning-text").text(reason);
+        this.$(".search-warning").addClass("active");
+
+        if (this.timer) {
+            window.clearTimeout(this.timer);
+            this.timer = null;
+        }
+
+        this.timer = window.setTimeout(() => {
+            this.$(".search-warning").removeClass("active");
+        }, 3000);
     }
 
     getKeyword() {
@@ -98,7 +130,7 @@ export default class POISearchView extends View {
 
     _search() {
         const keyword = this.getKeyword();
-        if (!(keyword === "" || keyword === null || keyword === undefined)) {
+        if (!(keyword.trim() === "" || keyword === null || keyword === undefined)) {
             this.fireSearch({
                 keyword
             });

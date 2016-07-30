@@ -23,7 +23,15 @@ export default class SelectedLayer extends Layer {
         this.setProperty("selectedPoi", selectedPoi);
 
         if (selectedPoi) {
-            console.log(selectedPoi);
+            this.markerGroup.clearLayers();
+
+            const marker = L.marker(selectedPoi.location, {
+                icon: L.icon({
+                    iconUrl: require("mb/resource/images/blankpoi.png"),
+                    iconSize: [19, 32]
+                })
+            });
+            this.markerGroup.addLayer(marker);
         }
     }
 
