@@ -23,7 +23,7 @@ export default class ODSearchView extends View {
         this.$container.append(`
             <ul class="tabs">
                 <li class="car"><i class="iconfont icon-car"></i></li>
-                <li class="bus"><i class="iconfont icon-bud"></i></li>
+                <li class="bus"><i class="iconfont icon-bus"></i></li>
                 <li class="walking"><i class="iconfont icon-people-walking"></i></li>
             </ul>
             <div class="line-search">
