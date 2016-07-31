@@ -4,6 +4,9 @@ export default class ODSearchView extends View {
     metadata = {
         properties: {
             type: { type: "string" }
+        },
+        events: {
+            searchRoute: {}
         }
     }
 
@@ -39,5 +42,12 @@ export default class ODSearchView extends View {
                 <button>查询路线</button>
             </div>
         `);
+
+        const $searchBtn = this.$(".line-search-submit button");
+        $searchBtn.on("click", this._searchBtn_click.bind(this));
+    }
+
+    _searchBtn_click(e) {
+        this.fireSearchRoute();
     }
 }

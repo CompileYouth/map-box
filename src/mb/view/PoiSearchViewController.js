@@ -12,6 +12,7 @@ export default class POISearchViewController extends ViewController {
     afterInit() {
         super.afterInit();
 
+        this.view.attachSearch(this._onsearch.bind(this));
         this.view.suggestionListView.attachItemClick(this._itemClick.bind(this))
     }
 
@@ -25,8 +26,6 @@ export default class POISearchViewController extends ViewController {
     }
     initView() {
         super.initView();
-
-        this.view.attachSearch(this._onsearch.bind(this));
     }
 
     _onsearch(e) {

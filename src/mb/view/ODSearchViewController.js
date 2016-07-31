@@ -12,6 +12,8 @@ export default class ODSearchViewController extends ViewController {
     afterInit() {
         super.afterInit();
 
+        this.view.attachSearchRoute(this._searchRoute.bind(this));
+
         this._initControllers();
     }
 
@@ -36,6 +38,11 @@ export default class ODSearchViewController extends ViewController {
 
     initView() {
         super.initView();
+    }
 
+    _searchRoute(e) {
+        const originPoi = this.startSearchViewController.view.getPoi();
+        const destPoi = this.endSearchViewController.view.getPoi();
+        console.log(originPoi, destPoi);
     }
 }
