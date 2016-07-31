@@ -1,5 +1,7 @@
 import ViewController from "sap/a/view/ViewController";
 
+import ServiceClient from "gd/service/ServiceClient";
+
 import ODSearchView from "./ODSearchView";
 import StartSearchViewController from "./StartSearchViewController";
 import EndSearchViewController from "./EndSearchViewController";
@@ -41,8 +43,19 @@ export default class ODSearchViewController extends ViewController {
     }
 
     _searchRoute(e) {
+        const serviceClient = ServiceClient.getInstance();
+        const model = sap.ui.getCore().getModel();
         const originPoi = this.startSearchViewController.view.getPoi();
         const destPoi = this.endSearchViewController.view.getPoi();
-        console.log(originPoi, destPoi);
+        if (originPoi !== null && destPoi) {
+            model.forceSetProperty("/originPoi", {
+                name: originPoi.name,
+                location: originPoi.location
+            });
+            model.forceSetProperty("/destPoi", {
+                name: destPoi.name,
+                location: destPoi.location
+            });
+        }
     }
 }

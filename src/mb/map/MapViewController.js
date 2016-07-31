@@ -13,12 +13,15 @@ export default class MapViewController extends ViewController {
         super.afterInit();
 
         this.view.attachMapClick(this._map_click.bind(this));
+        this.view.attachSearchRoute(this._search_route.bind(this));
     }
 
     createView(options) {
         const opt = $.extend({
             "selectedPoi": "{/selectedPoi}",
-            "queryPoi": "{/queryPoi}"
+            "queryPoi": "{/queryPoi}",
+            "originPoi": "{/originPoi}",
+            "destPoi": "{/destPoi}"
         }, options);
         return new MapView(opt);
     }
@@ -55,5 +58,12 @@ export default class MapViewController extends ViewController {
                 location: [lat, lng]
             })
         });
+    }
+
+    _search_route(e) {
+        const model = sap.ui.getCore().getModel();
+        const originPoi = model.getProperty("/originPoi");
+        const destPoi = model.getProperty("/destPoi");
+        console.log(originPoi, destPoi);
     }
 }
