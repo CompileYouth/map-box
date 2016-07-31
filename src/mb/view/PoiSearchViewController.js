@@ -17,8 +17,9 @@ export default class POISearchViewController extends ViewController {
 
     createView(options) {
         const opt = $.extend({
-            selectedPoi: "{/selectedPoi}",
-            queryPoi: "{/queryPoi}"
+            poi: "{/selectedPoi}",
+            queryPoi: "{/queryPoi}",
+            placeholder: "搜索位置"
         }, options);
         return new POISearchView(opt);
     }
