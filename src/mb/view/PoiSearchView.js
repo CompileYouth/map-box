@@ -48,6 +48,11 @@ export default class POISearchView extends SearchView {
 
         // this._initSuggestionListView();
         // this._initWarningView();
+
+        //add
+        const $directionBtn = $(`<div class="direction-btn"><span class="iconfont icon-direction"></span></div>`);
+        this.$container.append($directionBtn);
+        //add
     }
 
     afterInit() {

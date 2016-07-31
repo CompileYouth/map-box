@@ -121,7 +121,6 @@ export default class SearchView extends View {
             });
         }
         else {
-            this.showWarning("内容不能为空哦");
             this.suggestionListView.hide();
         }
     }

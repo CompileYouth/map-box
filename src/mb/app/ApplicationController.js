@@ -25,8 +25,8 @@ export default class ApplicationController extends AdaptiveApplicationController
 
     _initControllers() {
         this._initPOISearchViewController();
-        this._initMapViewController();
         this._initODSearchViewController();
+        this._initMapViewController();
     }
 
     _initPOISearchViewController() {
