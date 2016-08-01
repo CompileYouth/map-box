@@ -1,10 +1,9 @@
 import ViewController from "sap/a/view/ViewController";
+import SearchView from "sap/a/view/SearchView";
 
 import ServiceClient from "gd/service/ServiceClient";
 
-import POISearchView from "./POISearchView";
-
-export default class POISearchViewController extends ViewController {
+export default class StartSearchViewController extends ViewController {
     init() {
         super.init();
     }
@@ -18,14 +17,14 @@ export default class POISearchViewController extends ViewController {
 
     createView(options) {
         const opt = $.extend({
-            poi: "{/selectedPoi}",
-            queryPoi: "{/queryPoi}",
-            placeholder: "搜索位置"
+            placeholder: "起：请输入起点"
         }, options);
-        return new POISearchView(opt);
+        return new SearchView(opt);
     }
+
     initView() {
         super.initView();
+
     }
 
     _onsearch(e) {
@@ -40,16 +39,7 @@ export default class POISearchViewController extends ViewController {
 
     _itemClick(e) {
         const item = e.getParameter("item");
-        const model = sap.ui.getCore().getModel();
-
-        if (!item || !item.location || Number.isNaN(item.location[0]) || Number.isNaN(item.location[1])) {
-            this.view.showWarning("无法查询此地址");
-            return;
-        }
-
-        const preItem = model.getProperty("/selectedPoi");
-        //model.setProperty("/selectedPoi", null);
-        model.forceSetProperty("/selectedPoi", {
+        this.view.setPoi({
             name: item.name,
             location: item.location
         });

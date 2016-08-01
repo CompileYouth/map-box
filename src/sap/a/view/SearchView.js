@@ -36,7 +36,7 @@ export default class SearchView extends View {
         $clearBtn.on("click", this._onclearBtnclick.bind(this));
 
         this._initSuggestionListView();
-        this._initWarningView();
+        //this._initWarningView();
     }
 
     afterInit() {
@@ -121,7 +121,6 @@ export default class SearchView extends View {
             });
         }
         else {
-            this.showWarning("内容不能为空哦");
             this.suggestionListView.hide();
         }
     }
