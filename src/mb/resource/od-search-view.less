@@ -67,6 +67,61 @@
             width: 85%;
             height: 90px;
             float: left;
+
+            .line-search-start, .line-search-end {
+                position: relative;
+
+                .input-box {
+                    position: relative;
+                    width: 300px;
+                    height: 35px;
+                    line-height: 35px;
+                    margin-bottom: 15px;
+                    border: 1px solid #e0e0e0;
+
+                    > input {
+                        border: none;
+                        height: 30px;
+                        width: 240px;
+                        line-height: 30px;
+                    }
+
+                    > .clear-btn {
+                        position: absolute;
+                        height: 20px;
+                        width: 20px;
+                        right: 20px;
+                        top: 0;
+
+                        cursor: pointer;
+                    }
+                }
+
+                .suggestion-list-view {
+                    z-index: 1000;
+                    border: 1px solid #eee;
+                    display: none;
+                }
+            }
+        }
+    }
+
+    > .line-search-submit {
+        > button {
+            float: right;
+            width: 88px;
+            height: 36px;
+            margin-right: 20px;
+            background: #0f89f5;
+            border: none;
+            border-radius: 2px;
+            color: white;
+            padding: 8px 12px;
+            cursor: pointer;
+
+            &:hover {
+                color: #eee;
+            }
         }
     }
 }
