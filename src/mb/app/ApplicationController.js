@@ -59,11 +59,11 @@ export default class ApplicationController extends AdaptiveApplicationController
         setTimeout(() => {
             const serviceClient = ServiceClient.getInstance();
 
-            serviceClient.attachReady((e) => {
-                serviceClient.convertToGcj02([[31.979, 118.755], [32.04389, 118.77881]]).then((result) => {
-                    this.mapViewController.searchRoute(result);
-                }, (reason) => {});
-            });
+            // serviceClient.attachReady((e) => {
+            //     serviceClient.convertToGcj02([[31.979, 118.755], [32.04389, 118.77881]]).then((result) => {
+            //         this.mapViewController.searchRoute(result);
+            //     }, (reason) => {});
+            // });
         });
     }
 

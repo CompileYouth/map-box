@@ -20,8 +20,7 @@ export default class MapViewController extends ViewController {
         const opt = $.extend({
             "selectedPoi": "{/selectedPoi}",
             "queryPoi": "{/queryPoi}",
-            "originPoi": "{/originPoi}",
-            "destPoi": "{/destPoi}"
+            "odPoi": "{/odPoi}"
         }, options);
         return new MapView(opt);
     }
@@ -34,14 +33,14 @@ export default class MapViewController extends ViewController {
         const serviceClient = ServiceClient.getInstance();
         const start = serviceClient.convertToWgs84(locations[0].lat, locations[0].lng);
         const end = serviceClient.convertToWgs84(locations[1].lat, locations[1].lng);
-        this.view.exampleLayer.applySettings({
+        this.view.routeLayer.applySettings({
             startLocation: L.latLng(start),
             endLocation: L.latLng(end)
         });
-        this.view.exampleLayer.fitBounds();
+        this.view.routeLayer.fitBounds();
 
         serviceClient.searchDrivingRoute(locations).then((result) => {
-            this.view.exampleLayer.drawRoute(result);
+            this.view.routeLayer.drawRoute(result);
         });
     }
 
@@ -62,8 +61,13 @@ export default class MapViewController extends ViewController {
 
     _search_route(e) {
         const model = sap.ui.getCore().getModel();
-        const originPoi = model.getProperty("/originPoi");
-        const destPoi = model.getProperty("/destPoi");
-        console.log(originPoi, destPoi);
+        const odPoi = model.getProperty("/odPoi");
+
+        if (odPoi) {
+            const originPoi = odPoi.originPoi;
+            const destPoi = odPoi.destPoi;
+            this.searchRoute([{lat: originPoi.location[0], lng: originPoi.location[1]}, {lat: destPoi.location[0], lng: destPoi.location[1]}]);
+        }
+
     }
 }

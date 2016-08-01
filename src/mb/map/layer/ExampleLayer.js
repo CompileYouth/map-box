@@ -82,7 +82,7 @@ export default class ExampleLayer extends Layer {
             this.container.addLayer(this.endMarker);
         }
         else {
-            this.markerGroup.setLatLng(this.getEndLocation());
+            this.endMarker.setLatLng(this.getEndLocation());
         }
     }
 }

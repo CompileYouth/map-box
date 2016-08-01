@@ -5,8 +5,7 @@ export default class Model extends SAPModel {
         super({
             selectedPoi: null,
             queryPoi: null,
-            originPoi: null,
-            destPoi: null
+            odPoi: null
         });
     }
 

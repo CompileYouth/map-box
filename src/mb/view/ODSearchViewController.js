@@ -47,14 +47,10 @@ export default class ODSearchViewController extends ViewController {
         const model = sap.ui.getCore().getModel();
         const originPoi = this.startSearchViewController.view.getPoi();
         const destPoi = this.endSearchViewController.view.getPoi();
-        if (originPoi !== null && destPoi) {
-            model.forceSetProperty("/originPoi", {
-                name: originPoi.name,
-                location: originPoi.location
-            });
-            model.forceSetProperty("/destPoi", {
-                name: destPoi.name,
-                location: destPoi.location
+        if (originPoi !== null && destPoi !== null) {
+            model.forceSetProperty("/odPoi", {
+                originPoi,
+                destPoi
             });
         }
     }

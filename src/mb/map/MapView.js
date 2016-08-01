@@ -5,13 +5,13 @@ import ServiceClient from "gd/service/ServiceClient";
 
 import ExampleLayer from "./layer/ExampleLayer";
 import SelectedLayer from "./layer/SelectedLayer";
+import RouteLayer from "./layer/RouteLayer";
 
 export default class MapView extends AdaptiveMapView {
     metadata = {
         properties: {
             selectedPoi: { type: "object", bindable: true },
-            originPoi: { type: "object", bindable: true },
-            destPoi: { type: "object", bindable: true }
+            odPoi: { type: "object", bindable: true }
         },
 
         events: {
@@ -42,8 +42,8 @@ export default class MapView extends AdaptiveMapView {
         });
         this.addLayer(this.selectedLayer);
 
-        this.exampleLayer = new ExampleLayer();
-        this.addLayer(this.exampleLayer);
+        this.routeLayer = new RouteLayer();
+        this.addLayer(this.routeLayer);
     }
 
     setSelectedPoi(selectedPoi) {
@@ -53,13 +53,8 @@ export default class MapView extends AdaptiveMapView {
         }
     }
 
-    setOriginPoi(originPoi) {
-        this.setProperty("originPoi", originPoi);
-        this.fireSearchRoute();
-    }
-
-    setDestPoi(destPoi) {
-        this.setProperty("destPoi", destPoi);
+    setOdPoi(odPoi) {
+        this.setProperty("odPoi", odPoi);
         this.fireSearchRoute();
     }
 

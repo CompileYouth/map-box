@@ -2,12 +2,12 @@ import Layer from "sap/a/map/layer/Layer";
 
 import ServiceClient from "gd/service/ServiceClient";
 
-export default class ExampleLayer extends Layer {
+export default class RouteLayer extends Layer {
 
     metadata = {
         properties: {
-            originPoi: { type: "object" },
-            destPoi: { type: "object" }
+            startLocation: { type: "any" },
+            endLocation: { type: "any" }
         }
     };
 
@@ -25,14 +25,16 @@ export default class ExampleLayer extends Layer {
         super.afterInit();
     }
 
-    setOriginPoi(originPoi) {
-        this.setProperty("originPoi", originPoi);
+    setStartLocation(location) {
+        const loc = L.latLng(location);
+        this.setProperty("startLocation", loc);
 
-        this._redrawStartMarker()
+        this._redrawStartMarker();
     }
 
-    setDestPoi(destPoi) {
-        this.setProperty("destPoi", destPoi);
+    setEndLocation(location) {
+        const loc = L.latLng(location);
+        this.setProperty("endLocation", loc);
 
         this._redrawEndMarker();
     }
@@ -53,7 +55,7 @@ export default class ExampleLayer extends Layer {
 
     _redrawStartMarker() {
         if (!this.startMarker) {
-            this.startMarker = L.circleMarker(L.latlng(this.getOriginPoi().location), {
+            this.startMarker = L.circleMarker(this.getStartLocation(), {
                 color: "green",
                 opacity: 0.8,
                 fillColor: "green",
@@ -64,23 +66,23 @@ export default class ExampleLayer extends Layer {
             this.markerGroup.addLayer(this.startMarker);
         }
         else {
-            this.startMarker.setLatLng(L.latlng(this.getOriginPoi().location));
+            this.startMarker.setLatLng(this.getStartLocation());
         }
     }
 
     _redrawEndMarker() {
         if (!this.endMarker) {
-            this.endMarker = L.circleMarker(L.latlng(this.getDestPoi().location), {
+            this.endMarker = L.circleMarker(this.getEndLocation(), {
                 color: "red",
                 opacity: 0.8,
                 fillColor: "red",
                 fillOpacity: 0.8
             });
             this.endMarker.setRadius(10);
-            this.container.addLayer(this.endMarker);
+            this.markerGroup.addLayer(this.endMarker);
         }
         else {
-            this.markerGroup.setLatLng(L.latlng(this.getDestPoi().location));
+            this.endMarker.setLatLng(this.getEndLocation());
         }
     }
 }
