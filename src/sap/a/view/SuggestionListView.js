@@ -1,9 +1,9 @@
-import BaseListView from "sap/a/view/BaseListView";
+import BaseListView from "./BaseListView";
 
 export default class SuggestionListView extends BaseListView {
     init() {
         super.init();
-        this.addStyleClass("mb-view-suggestion-list-view");
+        this.addStyleClass("suggestion-list-view");
 
     }
 

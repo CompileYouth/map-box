@@ -2,7 +2,7 @@ import Layer from "sap/a/map/layer/Layer";
 
 import ServiceClient from "gd/service/ServiceClient";
 
-export default class ExampleLayer extends Layer {
+export default class RouteLayer extends Layer {
 
     metadata = {
         properties: {
@@ -29,7 +29,7 @@ export default class ExampleLayer extends Layer {
         const loc = L.latLng(location);
         this.setProperty("startLocation", loc);
 
-        this._redrawStartMarker()
+        this._redrawStartMarker();
     }
 
     setEndLocation(location) {
@@ -79,7 +79,7 @@ export default class ExampleLayer extends Layer {
                 fillOpacity: 0.8
             });
             this.endMarker.setRadius(10);
-            this.container.addLayer(this.endMarker);
+            this.markerGroup.addLayer(this.endMarker);
         }
         else {
             this.endMarker.setLatLng(this.getEndLocation());

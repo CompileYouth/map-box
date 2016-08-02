@@ -1,11 +1,11 @@
-import View from "sap/a/view/View";
+import SearchView from "sap/a/view/SearchView";
 
-import SuggestionListView from "./SuggestionListView";
+//import SuggestionListView from "./SuggestionListView";
 
-export default class POISearchView extends View {
+export default class POISearchView extends SearchView {
     metadata = {
         properties: {
-            selectedPoi: { type: "object", bindable: true },
+            //selectedPoi: { type: "object", bindable: true },
             queryPoi: { type: "object", bindable: true }
         },
         events: {
@@ -13,7 +13,8 @@ export default class POISearchView extends View {
                 parameters: {
                     keyword: "string"
                 }
-            }
+            },
+            showRouteBox: {}
         }
     }
 
@@ -21,59 +22,74 @@ export default class POISearchView extends View {
         super.init();
         this.addStyleClass("mb-view-poi-search-view");
 
-        this.$element.append(`
-            <div class="input-box">
-                <input type="search" class="search-input" placeholder="搜索位置、公交站、地铁站">
-                <div class="clear-btn">
-                    <span class="iconfont icon-clear"></span>
-                </div>
-                <div class="search-btn">
-                    <span class="iconfont icon-search"></span>
-                </div>
-            </div>
-        `);
+        // this.$element.append(`
+        //     <div class="input-box">
+        //         <input type="search" class="search-input" placeholder="搜索位置、公交站、地铁站">
+        //         <div class="clear-btn">
+        //             <span class="iconfont icon-clear"></span>
+        //         </div>
+        //         <div class="search-btn">
+        //             <span class="iconfont icon-search"></span>
+        //         </div>
+        //     </div>
+        // `);
 
-        this.$searchInput = this.$(".search-input");
-        const $clearBtn = this.$(".clear-btn");
-        const $searchBtn = this.$(".search-btn");
+        // this.$searchInput = this.$(".search-input");
+        // const $clearBtn = this.$(".clear-btn");
+        // const $searchBtn = this.$(".search-btn");
+        //add
+        const $searchBtn = $(`<div class="search-btn"><span class="iconfont icon-search"></span></div>`);
+        this.$container.append($searchBtn);
+        //add
 
         this.$container.on("keydown", this._onkeydown.bind(this));
-        this.$searchInput.on("input", this._oninput.bind(this));
+        // this.$searchInput.on("input", this._oninput.bind(this));
         $searchBtn.on("click", this._onsearchBtnclick.bind(this));
-        $clearBtn.on("click", this._onclearBtnclick.bind(this));
+        // $clearBtn.on("click", this._onclearBtnclick.bind(this));
 
-        this._initSuggestionListView();
-        this._initWarningView();
+        // this._initSuggestionListView();
+        // this._initWarningView();
+
+        //add
+        const $directionBtn = $(`<div class="direction-btn">
+                                    <span class="iconfont icon-direction"></span>
+                                    <span class="iconfont icon-clear" />
+                                </div>`);
+        $directionBtn.on("click", this._directionBtn_onclick.bind(this));
+        this.$dirBtn = this.$(".icon-direction");
+        this.$removeBtn = this.$(".icon-clear");
+        this.$container.append($directionBtn);
+        //add
     }
 
     afterInit() {
         super.afterInit();
     }
 
-    _initSuggestionListView() {
-        this.suggestionListView = new SuggestionListView("suggestion-list-view");
-        this.addSubview(this.suggestionListView);
-    }
+    // _initSuggestionListView() {
+    //     this.suggestionListView = new SuggestionListView("suggestion-list-view");
+    //     this.addSubview(this.suggestionListView);
+    // }
+    //
+    // _initWarningView() {
+    //     this.$container.append(`
+    //         <div class="search-warning">
+    //             <span class="arrow"></span>
+    //             <div class="warning-container">
+    //                 <span class="iconfont icon-warning"></span>
+    //                 <span class="warning-text"></span>
+    //             </div>
+    //         </div>
+    //     `);
+    // }
 
-    _initWarningView() {
-        this.$container.append(`
-            <div class="search-warning">
-                <span class="arrow"></span>
-                <div class="warning-container">
-                    <span class="iconfont icon-warning"></span>
-                    <span class="warning-text"></span>
-                </div>
-            </div>
-        `);
-    }
-
-    setSelectedPoi(selectedPoi) {
-        this.setProperty("selectedPoi", selectedPoi);
-        if (selectedPoi) {
-            this.$searchInput.val(selectedPoi.name);
-            this.suggestionListView.hide();
-        }
-    }
+    // setSelectedPoi(selectedPoi) {
+    //     this.setProperty("selectedPoi", selectedPoi);
+    //     if (selectedPoi) {
+    //         this.$searchInput.val(selectedPoi.name);
+    //         this.suggestionListView.hide();
+    //     }
+    // }
 
     setQueryPoi(queryPoi) {
         this.setProperty("queryPoi", queryPoi);
@@ -83,19 +99,19 @@ export default class POISearchView extends View {
         }
     }
 
-    showWarning(reason) {
-        this.$(".warning-text").text(reason);
-        this.$(".search-warning").addClass("active");
-
-        if (this.timer) {
-            window.clearTimeout(this.timer);
-            this.timer = null;
-        }
-
-        this.timer = window.setTimeout(() => {
-            this.$(".search-warning").removeClass("active");
-        }, 3000);
-    }
+    // showWarning(reason) {
+    //     this.$(".warning-text").text(reason);
+    //     this.$(".search-warning").addClass("active");
+    //
+    //     if (this.timer) {
+    //         window.clearTimeout(this.timer);
+    //         this.timer = null;
+    //     }
+    //
+    //     this.timer = window.setTimeout(() => {
+    //         this.$(".search-warning").removeClass("active");
+    //     }, 3000);
+    // }
 
     getKeyword() {
         return this.$searchInput.val();
@@ -107,36 +123,40 @@ export default class POISearchView extends View {
         }
     }
 
-    _oninput(e) {
-        if (this.timer) {
-            window.clearTimeout(this.timer);
-            this.timer = null;
-        }
-
-        this.timer = window.setTimeout(() => {
-            this._search();
-        }, 300);
-
-    }
+    // _oninput(e) {
+    //     if (this.timer) {
+    //         window.clearTimeout(this.timer);
+    //         this.timer = null;
+    //     }
+    //
+    //     this.timer = window.setTimeout(() => {
+    //         this._search();
+    //     }, 300);
+    //
+    // }
 
     _onsearchBtnclick(e) {
         this._search();
     }
 
-    _onclearBtnclick() {
-        this.$searchInput.val("");
-        this.suggestionListView.hide();
-    }
+    // _onclearBtnclick() {
+    //     this.$searchInput.val("");
+    //     this.suggestionListView.hide();
+    // }
 
-    _search() {
-        const keyword = this.getKeyword();
-        if (!(keyword.trim() === "" || keyword === null || keyword === undefined)) {
-            this.fireSearch({
-                keyword
-            });
-        }
-        else {
-            this.suggestionListView.hide();
-        }
+    // _search() {
+    //     const keyword = this.getKeyword();
+    //     if (!(keyword.trim() === "" || keyword === null || keyword === undefined)) {
+    //         this.fireSearch({
+    //             keyword
+    //         });
+    //     }
+    //     else {
+    //         this.suggestionListView.hide();
+    //     }
+    // }
+
+    _directionBtn_onclick(e) {
+        console.log(e.currentTarget);
     }
 }

@@ -1,0 +1,142 @@
+.mb-view-od-search-view {
+    position: absolute;
+    top: 56px;
+    left: 50px;
+    z-index: 999;
+    width: 400px;
+    height: 240px;
+    background: white;
+
+    .tabs {
+        border: 1px solid #e0e0e0;
+        border-radius: 2px;
+        height: 30px;
+        margin: 10px 20px;
+        padding: 0;
+
+        > li {
+            position: relative;
+            list-style: none;
+            float: left;
+            width: 33.333%;
+            text-align: center;
+            line-height: 27px;
+            cursor: pointer;
+
+            > i {
+                margin-right: 5px;
+            }
+
+            &.active {
+                color: #0f89f5;
+            }
+        }
+
+        li:not(:last-child) {
+            &::after {
+                position: absolute;
+                content: " ";
+                height: 20px;
+                width: 1px;
+                right: 0;
+                top: 3px;
+                background: #e0e0e0;
+            }
+        }
+    }
+
+    > .line-search {
+        height: 100px;
+        width: 380px;
+        margin: 10px;
+        > .line-search-left {
+            width: 10%;
+            height: 90px;
+            margin-left: 15px;
+            line-height: 90px;
+            float: left;
+
+            > i {
+                color: #333;
+                font-weight: normal;
+                cursor: pointer;
+                opacity: 0.6;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        > .line-search-form {
+            width: 320px;
+            height: 90px;
+            float: left;
+
+            .line-search-start, .line-search-end {
+                position: relative;
+
+                .input-box {
+                    position: relative;
+                    width: 316px;
+                    height: 35px;
+                    line-height: 35px;
+                    margin-bottom: 15px;
+                    border: 1px solid #e0e0e0;
+
+                    > input {
+                        border: none;
+                        height: 30px;
+                        width: 240px;
+                        line-height: 30px;
+                        padding-left: 10px;
+                    }
+
+                    > .clear-btn {
+                        position: absolute;
+                        height: 20px;
+                        width: 20px;
+                        right: 20px;
+                        top: -2px;
+                        opacity: 0.6;
+
+                        cursor: pointer;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                .suggestion-list-view {
+                    z-index: 1000;
+                    border: 1px solid #eee;
+                    display: none;
+                }
+            }
+        }
+    }
+
+    > .line-search-submit {
+        > button {
+            float: right;
+            width: 88px;
+            height: 36px;
+            margin-right: 22px;
+            background: #0f89f5;
+            border: none;
+            border-radius: 2px;
+            color: white;
+            padding: 8px 12px;
+            cursor: pointer;
+
+            &:hover {
+                color: #eee;
+            }
+        }
+    }
+
+    &.active {
+        display: block;
+    }
+}
