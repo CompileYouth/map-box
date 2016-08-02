@@ -24,7 +24,7 @@ export default class SearchView extends View {
             <div class="input-box">
                 <input type="search" class="search-input">
                 <div class="clear-btn">
-                    <span class="iconfont icon-clear"></span>
+                    <span class="iconfont icon-delete"></span>
                 </div>
             </div>
         `);

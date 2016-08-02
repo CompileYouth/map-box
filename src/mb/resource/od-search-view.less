@@ -89,6 +89,7 @@
                         height: 30px;
                         width: 240px;
                         line-height: 30px;
+                        padding-left: 10px;
                     }
 
                     > .clear-btn {
@@ -96,9 +97,14 @@
                         height: 20px;
                         width: 20px;
                         right: 20px;
-                        top: 0;
+                        top: -2px;
+                        opacity: 0.6;
 
                         cursor: pointer;
+
+                        &:hover {
+                            opacity: 1;
+                        }
                     }
                 }
 
@@ -128,5 +134,9 @@
                 color: #eee;
             }
         }
+    }
+
+    &.active {
+        display: block;
     }
 }

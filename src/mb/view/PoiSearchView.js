@@ -13,7 +13,8 @@ export default class POISearchView extends SearchView {
                 parameters: {
                     keyword: "string"
                 }
-            }
+            },
+            showRouteBox: {}
         }
     }
 
@@ -50,7 +51,13 @@ export default class POISearchView extends SearchView {
         // this._initWarningView();
 
         //add
-        const $directionBtn = $(`<div class="direction-btn"><span class="iconfont icon-direction"></span></div>`);
+        const $directionBtn = $(`<div class="direction-btn">
+                                    <span class="iconfont icon-direction"></span>
+                                    <span class="iconfont icon-clear" />
+                                </div>`);
+        $directionBtn.on("click", this._directionBtn_onclick.bind(this));
+        this.$dirBtn = this.$(".icon-direction");
+        this.$removeBtn = this.$(".icon-clear");
         this.$container.append($directionBtn);
         //add
     }
@@ -148,4 +155,8 @@ export default class POISearchView extends SearchView {
     //         this.suggestionListView.hide();
     //     }
     // }
+
+    _directionBtn_onclick(e) {
+        console.log(e.currentTarget);
+    }
 }
